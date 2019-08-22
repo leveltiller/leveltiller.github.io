@@ -157,26 +157,22 @@ window.addEventListener('DOMContentLoaded', () => {
       this.isSidebarVisible = true;
       var self = this;
 
-      if ($.isFunction($('html').velocity)) {
+      if (typeof $.Velocity === 'function') {
         this.sidebarEl.stop().velocity({
           width: SIDEBAR_WIDTH
         }, {
           display : 'block',
           duration: SIDEBAR_DISPLAY_DURATION,
           begin   : function() {
-            $('.sidebar .motion-element').not('.site-state').velocity(
-              isRight ? 'transition.slideRightIn' : 'transition.slideLeftIn', {
-                stagger: 50,
-                drag   : true
-              }
-            );
-            $('.site-state').velocity(
-              isRight ? 'transition.slideRightIn' : 'transition.slideLeftIn', {
-                stagger: 50,
-                drag   : true,
-                display: 'flex'
-              }
-            );
+            $.Velocity(document.querySelectorAll('.sidebar .motion-element:not(.site-state)'), isRight ? 'transition.slideRightIn' : 'transition.slideLeftIn', {
+              stagger: 50,
+              drag   : true
+            });
+            $.Velocity(document.querySelector('.site-state'), isRight ? 'transition.slideRightIn' : 'transition.slideLeftIn', {
+              stagger: 50,
+              drag   : true,
+              display: 'flex'
+            });
           },
           complete: function() {
             self.sidebarEl.addClass('sidebar-active');
@@ -202,16 +198,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
       sidebarToggleLines.init();
       NexT.utils.isDesktop() && $('body').stop().animate(isRight ? {'padding-right': 0} : {'padding-left': 0});
-
-      // Prevent adding TOC to Overview if Overview was selected when close & open sidebar.
-      var tocWrap = document.querySelector('.post-toc-wrap');
-      if (tocWrap) {
-        if ($('.site-overview-wrap').css('display') === 'block') {
-          tocWrap.classList.remove('motion-element');
-        } else {
-          tocWrap.classList.add('motion-element');
-        }
-      }
     }
   };
   sidebarToggleMotion.init();
