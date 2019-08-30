@@ -1828,7 +1828,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff1f0b;
+  background: #1ac239;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3129,6 +3129,6 @@ pre .javascript .function {
 * {
   cursor: url("../../images/chuyin01.ico"), auto !important;
 }
-:active {
+a:hover {
   cursor: url("../../images/chuyin02.ico"), auto !important;
 }
